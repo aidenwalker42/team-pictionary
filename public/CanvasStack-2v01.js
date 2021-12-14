@@ -1,30 +1,3 @@
-/*=============================================================
-  Filename: CanvasStack-2v01.js
-  Rev: 2
-  By: A.R.Collins
-  Description: Utilities to create multiple transparent
-  canvas layers suitable for animation.
-  License: Released into the public domain
-  latest version at
-  <http://www.arc.id.au/CanvasLayers.html>
-
-  Date   |Description                                      |By
-  -------------------------------------------------------------
-  30Oct09 Rev 1.00 First release                            ARC
-  08Sep12 bugfix: test for emulator failed in IE9           ARC
-  02Mar13 Re-write to use screen canvas as background       ARC
-  28Jul13 remove getOverlayCanvas (use getElementById)
-          Tidy for JSLint                                   ARC
-  20Jul14 Setup a resize handler for layers, required when
-          canvas size changes on window resize (width in %).
-          Dropped excanvas support                          ARC
-  18Sep19 Re-factor to simplify                             ARC
-  21Sep19 Convert to Classes etc                            ARC
-  30Sep19 Added addResizeCallback method                    
-          Released as Rev 2v00                              ARC
-  01Jan20 Add Layer.dragObjects to match Cango Layer        ARC 
-  =============================================================*/
-
 var CanvasStack;
 
 (function () {
