@@ -1,0 +1,456 @@
+:root {
+  --white: #fafafa;
+  --bg: rgb(29, 29, 29);
+  --peri: #5784ff;
+}
+
+html,
+body {
+  background: rgb(29, 29, 29);
+  box-sizing: border-box;
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif; */
+}
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+}
+h1 {
+  color: var(--white);
+  font-size: 2rem;
+  padding: 1rem;
+}
+.h1-home {
+  font-size: 3rem;
+  text-align: center;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  padding: 0.25rem 0;
+}
+
+#main-container {
+  margin: 0 auto;
+  max-width: 1280px;
+  display: grid;
+}
+#main-container > h2 {
+  text-align: center;
+  color: var(--white);
+}
+.grid-center {
+  display: grid;
+  justify-content: center;
+}
+.gap {
+  gap: 1rem;
+}
+.just-left {
+  justify-content: left;
+}
+header a {
+  text-decoration: none;
+}
+#no-username-message {
+  color: crimson;
+}
+.box {
+  display: grid;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--white);
+  padding: 2rem;
+  width: 400px;
+  border-radius: 0.25rem;
+}
+.box input {
+  padding: 1rem 1rem 1rem 0.25rem;
+  font-size: 1rem;
+}
+.box input::placeholder {
+  text-align: left;
+}
+.box h2 {
+  margin: 0;
+}
+.big-button {
+  font-size: 1rem;
+  padding: 1rem 5rem;
+  border: none;
+  color: var(--white);
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.17);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.1)) top/100% 800%;
+  border-radius: 0.15em;
+  cursor: pointer;
+}
+.big-button:hover {
+  background-position: bottom;
+}
+#join-button {
+  background-color: limegreen;
+}
+#host-button {
+  background-color: var(--peri);
+}
+.box h4 {
+  display: inline;
+}
+.inc-button {
+  font-size: 1.5rem;
+  font-family: monospace;
+  color: var(--white);
+  display: inline;
+  border: none;
+  box-shadow: inset 0 -0.45em 0 -0.35em rgba(0, 0, 0, 0.17);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.2)) top/100% 800%;
+  border-radius: 0.15em;
+  background-color: var(--peri);
+  padding: 0rem 0.5rem;
+}
+.inc-button:hover {
+  background-position: bottom;
+}
+#create-room {
+  background-color: limegreen;
+}
+.edit-button {
+  border: none;
+  color: var(--white);
+  box-shadow: inset 0 -0.6em 0 -0.35em rgba(0, 0, 0, 0.17);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.1)) top/100% 800%;
+  border-radius: 0.15em;
+  cursor: pointer;
+}
+.green {
+  background-color: limegreen;
+}
+.blue {
+  background-color: var(--peri);
+}
+#edit-settings {
+  display: flex;
+}
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settings-span {
+  margin: 1rem;
+}
+#search-room {
+  padding: 0.5rem 10rem 0.5rem 0.25rem;
+  font-size: 1rem;
+}
+#room-grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.room-item {
+  background-color: var(--white);
+  display: grid;
+  justify-content: center;
+  border-radius: 0.25rem;
+  padding-bottom: 1rem;
+}
+.room-item div {
+  margin: 0.25rem;
+}
+.room-item button {
+  margin-top: 1rem;
+}
+.room-item h3 {
+  margin: 1rem 0 0 0;
+}
+.room-item h4 {
+  margin: 0;
+}
+.lobby-room-name * {
+  display: inline;
+  color: var(--white);
+}
+.lobby-room-name {
+  padding: 0.25rem;
+}
+.idle-players {
+  background: var(--white);
+  display: grid;
+  justify-content: left;
+  height: 430px;
+  border-radius: 0.125rem;
+}
+.idle-players-spacer {
+  padding-left: 1rem;
+}
+.lobby-grid {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  gap: 1rem;
+}
+.teams-box {
+  display: grid;
+  justify-content: center;
+  height: 430px;
+  background-color: var(--peri);
+  border-radius: 0.125rem;
+}
+.teams-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8rem;
+  color: var(--white);
+}
+.team a {
+  text-decoration: underline;
+  color: white;
+}
+.team a:hover {
+  color: limegreen;
+}
+.team h3 {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.team h3:hover {
+  color: limegreen;
+}
+.lobby-settings {
+  display: grid;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 0.125rem;
+}
+.game-history {
+  background: limegreen;
+  color: var(--white);
+  height: 430px;
+  border-radius: 0.125rem;
+}
+.lobby-chat-box {
+  background: var(--white);
+  border-radius: 0.125rem;
+}
+.chat-container {
+  height: 389px;
+  overflow-y: auto;
+}
+.chat-container h4 {
+  display: inline;
+}
+.chat-container li {
+  display: inline;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  width: 480px;
+}
+.lobby-chat-box form {
+  display: flex;
+  padding: 0.25rem;
+  background: var(--peri);
+  border-radius: 0.125rem;
+}
+.lobby-chat-box input {
+  padding: 0.25rem 250px 0.25rem 0.25rem;
+  font-size: 1rem;
+  flex-grow: 1;
+}
+.lobby-chat-box input:focus {
+  outline: none;
+}
+#game-chat {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.start-game-button {
+  font-size: 4rem;
+  border: none;
+  box-shadow: inset 0 -0.5em 0 -0.35em rgba(0, 0, 0, 0.17);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.1)) top/100% 800%;
+  background-color: limegreen;
+  color: white;
+  height: 430px;
+  border-radius: 0.125rem;
+}
+.start-game-button:hover {
+  background-position: bottom;
+  cursor: pointer;
+}
+.start-game-container {
+  background: limegreen;
+}
+.player-host {
+  color: goldenrod;
+}
+.player-local {
+  color: magenta;
+}
+
+/* Game */
+/* Game */
+/* Game */
+/* Game */
+/* Game */
+
+#clear-canvas-button {
+}
+canvas {
+  background-color: white;
+  position: absolute;
+}
+
+canvas:hover {
+  cursor: url(img/cursor.png) 20 20, auto;
+}
+.canvas-container {
+  background: chartreuse;
+  width: 800px;
+  height: 600px;
+}
+#canv_ovl_1,
+#canv_ovl_2 {
+}
+
+#palette {
+  display: flex;
+  align-items: center;
+}
+
+.color-box {
+  height: 36px;
+  width: 36px;
+  margin: 2px;
+  border: white solid 1px;
+}
+.color-box:hover {
+  border: magenta solid 1px;
+  cursor: pointer;
+}
+.selected {
+  border-color: magenta;
+}
+
+.color-box.red {
+  background: red;
+}
+.color-box.orange {
+  background: orange;
+}
+.color-box.yellow {
+  background: yellow;
+}
+.color-box.lime {
+  background: lime;
+}
+.color-box.green {
+  background: green;
+}
+.color-box.cyan {
+  background: cyan;
+}
+.color-box.blue {
+  background: blue;
+}
+.color-box.purple {
+  background: purple;
+}
+.color-box.pink {
+  background: pink;
+}
+.color-box.brown {
+  background: sienna;
+}
+.color-box.black {
+  background: black;
+}
+.color-box.dark-gray {
+  background: gray;
+}
+.color-box.light-gray {
+  background: lightgray;
+}
+.color-box.white {
+  background: white;
+}
+.brush-wrapper {
+  background-color: white;
+  height: 36px;
+  width: 36px;
+  margin: 2px;
+  border: white solid 1px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+.brush {
+  background: black;
+  margin: 0 12px;
+}
+.brush.small {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.brush.medium {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.brush.large {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.brush.xlarge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.clear-canvas-wrapper {
+  height: 36px;
+  width: 36px;
+  margin: 2px;
+  border: white solid 1px;
+  background: white;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+.clear-canvas-wrapper span {
+  font-size: 1.5rem;
+}
+.clear-canvas-wrapper:hover {
+  cursor: pointer;
+  background: magenta;
+}
+.active {
+  background: gold;
+}
+.head-bar-container {
+  background: var(--white);
+  margin: 1rem 0;
+}
+.head-bar-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.head-bar-flex h3 {
+  display: inline;
+}
+.head-bar-flex span {
+  font-size: 3rem;
+}

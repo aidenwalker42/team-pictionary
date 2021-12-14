@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <section id="main-container">
+        <div class="grid-center gap">
+            <header class="grid-center">
+                <a href="javascript:btnHome();"><h1 class="h1-home">Team Pictionary</h1></a>
+            </header>
+            <div class="box">
+                <input type="text" placeholder="Enter your name" id="name">
+                <button id="join-button" class="big-button" onclick="btnJoinGame()">Join a game</button>
+                <button id="host-button" class="big-button" onclick="btnHostGame()">Host a game</button>
+                <span id="no-username-message"></span>
+            </div>
+            <div class="box">
+                <h2>About</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur cupiditate ipsum cumque obcaecati vitae? Delectus in esse repellendus soluta eveniet?</p>
+                <h2>How to play</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus fuga a, dolor perferendis ipsa eaque blanditiis dolore rerum assumenda et!</p>
+            </div> 
+        </div>
+    </section>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="global.js"></script>
+    <script src="createRoom.js"></script>
+    <script src="pageChanger.js"></script>
+    <script src="joinGame.js"></script>
+    <script src="teamHandler.js"></script>
+    <script src="changeLobbySettings.js"></script>
+    <script src="chatHandler.js"></script>
+</body>
+</html>

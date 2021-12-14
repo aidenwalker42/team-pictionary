@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homepage.css">
+    <title>Document</title>
+</head>
+<body>
+    <section id="main-container">
+        <header>
+            <a href="javascript:btnHome();"><h1 class="h1-home">Team Pictionary</h1></a>
+        </header>
+        <h2>Create Game Room</h2>
+        <div class="grid-center gap">
+            <div class="box">
+                <input type="text" placeholder="Room name" id="room-name">
+                <div class="settings-item">
+                    <h4>Rounds: </h4>
+                    <div>
+                        <button class="inc-button" onclick="roundMinus()">-</button>
+                        <span id="rounds" class="settings-span">3</span>
+                        <button class="inc-button" onclick="roundPlus()">+</button>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <h4>Draw Time: </h4>
+                    <div>
+                        <button class="inc-button" onclick="drawTimeMinus()">-</button>
+                        <span id="draw-time" class="settings-span">80</span>
+                        <button class="inc-button" onclick="drawTimePlus()">+</button>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <h4>Max Teams: </h4>
+                    <div>
+                        <button class="inc-button" onclick="teamMinus()">-</button>
+                        <span id="max-teams" class="settings-span">4</span>
+                        <button class="inc-button" onclick="teamPlus()">+</button>
+                    </div>
+                </div>
+                <button class="big-button" id="create-room" onclick="createRoom()">Create Room</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
