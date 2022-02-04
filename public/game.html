@@ -20,16 +20,89 @@
                     <h3>Time: </h3><span id="setting-time">80</span>
                 </div>
                 <div>
-                    <span>_ _ _ _ _</span>
+                    <span id="hangman">_ _ a _ _</span>
                 </div>
                 <div><h3>Round: </h3><span id="setting-rounds">2/3</span></div>
             </div>
         </div>
-        <div class="grid-center">
+        <div class="grid-center" id="game-container">
+            <div class="sidebar-container" id="team-sidebar">
+                <h2>Teams</h2>
+                <div class="game-team">
+                    <h3>Team 1</h3>
+                    <ul class="team-list">
+                        <li>Player 1</li>
+                        <li>Player 2</li>
+                    </ul>
+                </div>
+                <div class="game-team">
+                    <h3>Team 2</h3>
+                    <ul class="team-list">
+                        <li>Player 1</li>
+                        <li>Player 2</li>
+                    </ul>
+                </div>
+                <div class="game-team">
+                    <h3>Team 3</h3>
+                    <ul class="team-list">
+                        <li>Player 1</li>
+                        <li>Player 2</li>
+                    </ul>
+                </div>
+                <div class="game-team">
+                    <h3>Team 4</h3>
+                    <ul class="team-list">
+                        <li>Player 1</li>
+                        <li>Player 2</li>
+                    </ul>
+                </div>
+                <div class="game-team">
+                    <h3>Team 5</h3>
+                    <ul class="team-list">
+                        <li>Player 1</li>
+                        <li>Player 2</li>
+                    </ul>
+                </div>
+                <!-- <div class="game-team">
+                    <h3>Team 6</h3>
+                    <ul class="team-list">
+                        <li>Player 1</li>
+                        <li>Player 2</li>
+                    </ul>
+                </div> -->
+            </div>
             <div class="canvas-container">
                 <canvas id="canv"></canvas>
+                <div id="overlay" class="grid-center">
+                    <h1>Select a word</h1>
+                    <div id="word-container">
+                        <div onclick="selectWord(1, this)">Test</div>
+                        <div onclick="selectWord(2, this)">Bobby Ferguson</div>
+                        <div onclick="selectWord(3, this)">Bitch Please</div>
+                    </div>
+                </div>
             </div>
-            <div id="palette">
+            <div class="sidebar-container">
+                <h2>Chat</h2>
+                <div id="ingame-chat">
+                    <ul>
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                        <h4>Aiden: </h4><li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae laborum magni quasi reiciendis quaerat rem quod quo ratione temporibus at.</li><br />
+                    </ul>
+                </div>
+                <form id="game-chat-form" action="">
+                    <input type="text" placeholder="Guess Here" id="game-chat-input">
+                </form>
+            </div>
+        </div>
+            <div id="palette" class="grid-center">
                 <div onclick="selectColor('black', this)" class="color-box black selected"></div>        
                 <div onclick="selectColor('white', this)" class="color-box white"></div>
                 <div onclick="selectColor('red', this)" class="color-box red"></div>
@@ -60,13 +133,11 @@
                     <span>🗑️</span>
                 </div>
             </div>
-        </div>
-
     </section>
     
     <div id="brush-selectors">
     </div>
     
-    <script src="index.js"></script>
+    <script src="gamejs/index.js"></script>
 </body>
 </html>

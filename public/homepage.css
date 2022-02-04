@@ -34,7 +34,6 @@ ul {
 li {
   padding: 0.25rem 0;
 }
-
 #main-container {
   margin: 0 auto;
   max-width: 1280px;
@@ -453,4 +452,110 @@ canvas:hover {
 }
 .head-bar-flex span {
   font-size: 3rem;
+}
+#game-container {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+.sidebar-container {
+  background: var(--white);
+  height: 778px;
+  border-radius: 0.125rem;
+}
+.sidebar-container h2 {
+  text-align: center;
+}
+.sidebar-container h3 {
+  display: inline;
+}
+.team-list {
+  margin-left: 1rem;
+}
+#ingame-chat {
+  height: 666px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#ingame-chat h4 {
+  display: inline;
+}
+#ingame-chat li {
+  display: inline;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  /* width: 480px; */
+}
+#game-chat-form {
+  display: flex;
+  padding: 0.25rem;
+  background: var(--peri);
+  border-radius: 0.125rem;
+}
+#game-chat-form input {
+  padding: 0.25rem 0;
+  font-size: 1rem;
+  flex-grow: 1;
+  width: 0px;
+  border-radius: 0.125rem;
+}
+#ingame-chat-form {
+  display: flex;
+  padding: 0.25rem;
+  background: var(--peri);
+  border-radius: 0.125rem;
+}
+#ingame-chat-form input {
+  padding: 0.25rem 0;
+  font-size: 1rem;
+  flex-grow: 1;
+  width: 0px;
+  border-radius: 0.125rem;
+}
+#overlay {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.75);
+  height: 600px;
+  width: 800px;
+  align-content: center;
+}
+#overlay h1 {
+  text-align: center;
+}
+#word-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#word-container div {
+  background: var(--white);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  font-size: 1.25rem;
+  margin: 1rem;
+}
+#word-container div:hover {
+  background: var(--peri);
+  cursor: pointer;
+  padding: 1.25rem 1rem;
+}
+.visible {
+  visibility: visible;
+  opacity: 1;
+  /* transition: opacity 0.25s linear; */
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  /* transition: visibility 0s 0.25s, opacity 0.25s linear; */
+}
+.nodraw {
+  visibility: visible;
+  background: none !important;
+}
+.green-text {
+  color: yellowgreen;
 }

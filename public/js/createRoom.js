@@ -40,6 +40,7 @@ function createRoom() {
     timeSettingValue,
     roundSettingValue,
     teamMaxSettingValue,
+    inProgress: false,
     maxPlayers: teamMaxSettingValue * 2,
     players: [{ id: socket.id, username: localUsername }],
     teams: [],

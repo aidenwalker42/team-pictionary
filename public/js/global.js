@@ -22,6 +22,26 @@ let form;
 let chatInput;
 let chatButton;
 
+let editLobbySettingsClicked;
+
+let wordPickerPlayer;
+let theActiveTeam;
+let theActiveTeamNumber;
+let currentRound;
+let currentWord;
+let yourTeamNumber;
+let inOverlay;
+
+let globalTime;
+
+let gameForm;
+let gameChatInput;
+let greenText;
+
+let guessingTeamsLeft;
+
+let clock;
+
 function updateUsernameClasses(roomObject) {
   // teams.innerHTML = "";
   console.log("erroe");
@@ -119,7 +139,7 @@ function displayHostControls() {
   <button class="big-button blue" onclick="editLobbySettings()">Change Settings</button>
   `;
   startGameButton = document.getElementById("start-game-container");
-  startGameButton.innerHTML = `<button class="start-game-button">Start Game</button>`;
+  startGameButton.innerHTML = `<button class="start-game-button" onclick="startGame()">Start Game</button>`;
 }
 
 socket.on("userJoinedLobby", (roomObject) => {
@@ -132,8 +152,15 @@ socket.on("userJoinedLobby", (roomObject) => {
 });
 
 socket.on("playerLeft", (roomObject) => {
+  let previousRoom = currentRoom;
   currentRoom = roomObject;
   console.log(currentRoom);
+  if (roomObject.inProgress) {
+    //if game is going on
+    displayTeams(currentRoom);
+    gameLeaveHandler(currentRoom, previousRoom);
+    return;
+  }
   //if in game then different render
   updateUsernameClasses(currentRoom);
   if (socket.id === roomObject.host.id) {
@@ -142,7 +169,7 @@ socket.on("playerLeft", (roomObject) => {
 });
 
 socket.on("alert", (msg) => {
-  console.log(msg);
+  alert(msg);
 });
 
 socket.on("playerJoinTeam", (roomObject) => {

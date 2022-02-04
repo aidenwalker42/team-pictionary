@@ -20,7 +20,7 @@ function btnJoinGame() {
         </header>
         <h2>Join a game room</h2>
         <div id="search-container" class="grid-center">
-            <input type="text" placeholder="🔎 Search Room name" id="search-room">
+            <input autocomplete="false" type="text" placeholder="🔎 Search Room name" id="search-room">
         </div>
         <div id="room-grid">
             <div class="room-item">
@@ -102,7 +102,7 @@ function btnHostGame() {
         <h2>Create Game Room</h2>
         <div class="grid-center gap">
             <div class="box">
-                <input type="text" placeholder="Room name" id="room-name">
+                <input autocomplete="false" type="text" placeholder="Room name" id="room-name">
                 <div class="settings-item">
                     <h4>Rounds: </h4>
                     <div>
@@ -133,24 +133,6 @@ function btnHostGame() {
   createRoomLoader(); //createRoom.js
 }
 function btnHome() {
-  //   section.innerHTML = `
-  //             <div class="grid-center gap">
-  //             <header class="grid-center">
-  //                 <a href="javascript:btnHome();"><h1 class="h1-home">Team Pictionary</h1></a>
-  //             </header>
-  //             <div class="box">
-  //                 <input type="text" placeholder="Enter your name" id="name">
-  //                 <button id="join-button" class="big-button" onclick="btnJoinGame()">Join a game</button>
-  //                 <button id="host-button" class="big-button" onclick="btnHostGame()">Host a game</button>
-  //                 <span id="no-username-message"></span>
-  //             </div>
-  //             <div class="box">
-  //                 <h2>About</h2>
-  //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur cupiditate ipsum cumque obcaecati vitae? Delectus in esse repellendus soluta eveniet?</p>
-  //                 <h2>How to play</h2>
-  //                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus fuga a, dolor perferendis ipsa eaque blanditiis dolore rerum assumenda et!</p>
-  //             </div>
-  //         </div>`;
   location.reload();
 }
 
@@ -220,12 +202,12 @@ function btnCreateRoom(resID) {
                     </ul>
                 </div>
                 <form id="game-chat-form" action="">
-                    <input type="text" placeholder="Chat Message" id="chat-input">
+                    <input autocomplete="false" type="text" placeholder="Chat Message" id="chat-input">
                     <button id="chat-button">Chat</button>
                 </form>
             </div>
             <div class="start-game-container" id="start-game-container">
-                <button class="start-game-button">Start Game</button>
+                <button class="start-game-button" onclick="startGame()">Start Game</button>
             </div>
         </div>`;
   chatMessages = document.getElementById("game-chat");

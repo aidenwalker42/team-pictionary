@@ -45,6 +45,7 @@ function settingsChange(num) {
 function editLobbySettings() {
   //show edit buttons
   //edit button
+  editLobbySettingsClicked = true;
   lobbySettingsDOM = document.getElementById("lobby-settings");
   lobbySettingsDOM.innerHTML = `
   <div class="settings-item">
@@ -79,6 +80,7 @@ function editLobbySettings() {
 
 function applyLobbySettings() {
   //on clicking applySettings
+  editLobbySettingsClicked = false;
   currentRoundValue = parseInt(rounds.innerHTML);
   currentDrawTimeValue = parseInt(drawTime.innerHTML);
   currentMaxTeamsValue = parseInt(maxTeams.innerHTML);

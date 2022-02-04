@@ -1,4 +1,4 @@
-const socket = io.connect("ws://localhost:5500");
+// const socket = io.connect("ws://localhost:5500");
 
 const canvas = document.getElementById("canv");
 //need to write 2d or 3d

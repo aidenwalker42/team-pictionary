@@ -9,7 +9,44 @@ function joinRoomGet() {
     rooms = res.data;
     rooms.forEach((obj) => {
       let index = 0;
-      roomGrid.innerHTML += `
+      if (obj.inProgress) {
+        roomGrid.innerHTML += `
+            <div class="room-item">
+                <h3>${obj.roomName}</h3>
+                <h4>Host: ${obj.host.username}</h4>
+                <div>
+                    <span><b>${obj.players.length}/${obj.maxPlayers}</b> Players</span>
+                </div>
+                <div>
+                    <span><b>${obj.teamMaxSettingValue}</b> Teams</span>
+                </div>
+                <div>
+                    <span><b>${obj.timeSettingValue}</b> Second Timer</span>
+                </div>
+                <div>
+                    <h2>In Progress</h2>
+                </div>
+            </div>`;
+      } else if (obj.players.length === obj.maxPlayers) {
+        roomGrid.innerHTML += `
+            <div class="room-item">
+                <h3>${obj.roomName}</h3>
+                <h4>Host: ${obj.host.username}</h4>
+                <div>
+                    <span><b>${obj.players.length}/${obj.maxPlayers}</b> Players</span>
+                </div>
+                <div>
+                    <span><b>${obj.teamMaxSettingValue}</b> Teams</span>
+                </div>
+                <div>
+                    <span><b>${obj.timeSettingValue}</b> Second Timer</span>
+                </div>
+                <div>
+                    <h2>Room is full</h2>
+                </div>
+            </div>`;
+      } else {
+        roomGrid.innerHTML += `
             <div class="room-item">
                 <h3>${obj.roomName}</h3>
                 <h4>Host: ${obj.host.username}</h4>
@@ -26,6 +63,7 @@ function joinRoomGet() {
                     <button class="big-button green" onclick="joinLobby('${obj.id}')">Join</button>
                 </div>
             </div>`;
+      }
       index++;
     });
   });
@@ -108,7 +146,7 @@ function joinLobby(roomID) {
                     </ul>
                 </div>
                 <form id="game-chat-form" action="">
-                    <input type="text" placeholder="Chat Message" id="chat-input">
+                    <input autocomplete="false" type="text" placeholder="Chat Message" id="chat-input">
                     <button id="chat-button">Chat</button>
                 </form>
             </div>

@@ -4,6 +4,12 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: { origin: "*" },
 });
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.static("public"));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
@@ -41,13 +47,11 @@ io.on("connection", (socket) => {
     socket.join(roomObject.id);
     io.to(roomObject.id).emit("userJoinedLobby", roomObject);
   });
-  socket.on("playerJoinRoom", (username) => {
-    //only people in room will see event
-    //will put player in idle
-    //must change object
-  });
   socket.on("message", (username, chat, id, sID) => {
     io.to(id).emit("message", username, chat, sID);
+  });
+  socket.on("gameMessage", (username, chat, id, sID, teamID, greenText) => {
+    io.to(id).emit("gameMessage", username, chat, sID, teamID, greenText);
   });
   let currentTeam;
   socket.on("playerJoinTeam", (teamNumber, username, id) => {
@@ -142,15 +146,37 @@ io.on("connection", (socket) => {
     rooms[index].maxPlayers = teams * 2;
     io.to(id).emit("settingsChanged", rooms[index]);
   });
+  socket.on("startGame", (roomObject) => {
+    let index = findRoomIndex(roomObject.id);
+    rooms[index].inProgress = true;
+    io.to(roomObject.id).emit("startGame", rooms[index]);
+  });
+  socket.on("setWord", (word, roomObject) => {
+    io.to(roomObject.id).emit("setWord", word);
+  });
+  socket.on("points", (points, id) => {
+    let index = findRoomIndex(id);
+    rooms[index].points = points; //adding points array
+    io.to(id).emit("points", rooms[index]);
+  });
+  socket.on("addPoints", (amt, teamID, id) => {
+    let index = findRoomIndex(id);
+    rooms[index].points[teamID] += amt / rooms[index].players.length; //FIX THIS SHIT BRO
+    console.log(amt);
+    io.to(id).emit("addPoints", teamID, rooms[index]);
+  });
+  socket.on("tick", (time, id) => {
+    io.to(id).emit("tick", time);
+  });
   socket.on("disconnect", () => {
     if (!rooms) {
-      console.log("no room");
+      console.log("no rooms exist");
       return;
     }
     let [index, jIndex] = findPlayerInRoom(socket.id); //get indexes
     console.log(index, jIndex);
     if (index === null) {
-      console.log("Player was not found, did not remove player");
+      console.log("Player was not found, or player not in room");
       return;
     }
     //delete player who left from object
@@ -162,6 +188,7 @@ io.on("connection", (socket) => {
         ); //have to change the object
         if (playerInTeam !== -1) {
           rooms[index].teams[i][i + 1].splice(playerInTeam, 1);
+          console.log("removed player from team"); //remove player from team
           break;
         }
       }
@@ -170,28 +197,28 @@ io.on("connection", (socket) => {
       );
       if (playerInIdle !== -1) {
         rooms[index].idlePlayers.splice(playerInIdle, 1);
+        console.log("removed player from idle"); //remove player from idle
       }
     }
     //switch host
-    console.log("test " + rooms[index].players[0]);
     if (rooms[index].players[0] !== rooms[index].host) {
+      //if first player joined is not host
       try {
         rooms[index].host = {
           id: rooms[index].players[0].id,
           username: rooms[index].players[0].username,
         };
+        console.log("host transferred"); //host is now first player, next in line type thing
       } catch {
-        console.log(
-          "No players in lobby, cannot switch host, deleting room now."
-        );
+        console.log("cannot switch host, deleting room now.");
       }
     }
 
     //delete when no players
     console.log(rooms[index]);
     if (rooms[index].players.length === 0) {
-      rooms.splice(index, 1);
-      console.log("rooms:" + rooms);
+      //if no players in room
+      rooms.splice(index, 1); //remove room
     } else {
       io.to(rooms[index].id).emit("playerLeft", rooms[index]);
     }
@@ -246,6 +273,6 @@ function findPlayerInRoom(PlayerID) {
       }
     }
   }
-  console.log("Room not found");
+  console.log("Player in room not found");
   return [null, null];
 }
