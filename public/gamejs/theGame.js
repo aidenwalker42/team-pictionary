@@ -531,7 +531,7 @@ function wordGuessed(teamID, amt) {
   }
 
   //increase points of team
-  socket.emit("addPoints", amt, teamID, currentRoom.id, drawingTeamID); //adding amt to team
+  socket.emit("addPoints", amt, teamID, currentRoom.id, theActiveTeamNumber); //adding amt to team
   //change background color
 }
 socket.on("addPoints", (teamID, roomObj, drawingTeamID) => {

@@ -51,6 +51,7 @@ function updateUsernameClasses(roomObject) {
   // teams.innerHTML = "";
   console.log("updateLobby");
   currentRoom = roomObject;
+  idlePlayers = document.getElementById("game-idle-players");
   idlePlayers.innerHTML = "";
   console.log(roomObject);
   for (let i = 0; i < roomObject.idlePlayers.length; i++) {
