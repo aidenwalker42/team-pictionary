@@ -11,6 +11,7 @@ let teamMaxSetting;
 let localUsername;
 const BaseURL = "https://teampictionary.herokuapp.com/rooms";
 //http://localhost:5500/rooms
+// https://teampictionary.herokuapp.com/rooms
 
 let roomName;
 let idlePlayers;

@@ -39,24 +39,29 @@ ctx1.strokeStyle = "black";
 ctx1.lineWidth = 2.5;
 
 //TOOLS
-let playerOne = false;
-let playerTwo = false;
+let playerOne;
+let playerTwo;
 function checkWhichPlayer() {
+  console.log("checkplayer run");
   for (let i = 0; i < currentRoom.teams.length; i++) {
-    if (currentRoom.teams[i][i + 1][0]) {
+    console.log(currentRoom.teams[i][i + 1][1] !== undefined);
+    if (currentRoom.teams[i][i + 1][0] !== undefined) {
       //check if exists
+      console.log("und1");
       if (currentRoom.teams[i][i + 1][0].id === socket.id) {
         //matching socket.id
         playerOne = true;
         playerTwo = false;
-        break;
-      }
-    } else if (currentRoom.teams[i][i + 1][1]) {
-      //check if exists
-      if (currentRoom.teams[i][i + 1][1].id === socket.id) {
-        playerOne = false;
-        playerTwo = true;
-        break;
+        return;
+      } else if (currentRoom.teams[i][i + 1][1] !== undefined) {
+        //check if exists
+        console.log("und2");
+        if (currentRoom.teams[i][i + 1][1].id === socket.id) {
+          console.log("exist2");
+          playerOne = false;
+          playerTwo = true;
+          return;
+        }
       }
     }
   }

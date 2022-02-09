@@ -180,7 +180,6 @@ function loadGameHtml() {
     document.body.appendChild(indexjs);
   } else {
     canvasInit();
-    checkWhichPlayer();
   }
   addGameChatListener();
   displayTeams(currentRoom);
