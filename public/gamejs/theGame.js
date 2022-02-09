@@ -574,10 +574,6 @@ function roundEnd(type) {
   hangman.innerHTML = currentWord;
   let overlay = document.getElementById("overlay");
   overlay.className = "visible grid-center";
-  let guessed = document.querySelectorAll(".guessed");
-  for (let i = 0; i < guessed.length; i++) {
-    guessed[i].classList.remove("guessed");
-  }
   switch (type) {
     case 1:
       overlay.innerHTML = `<h1>Time ran out!</h1><br/><h1>The word was "${currentWord}".</h1>`;
@@ -616,6 +612,12 @@ function roundEnd(type) {
       } -- </b>Team ${sorted[i].index + 1}: ${sorted[i].score} PTS</li>`;
     }
     setTimeout(() => {
+      let guessed = document.querySelectorAll(".guessed");
+      console.log(guessed);
+      for (let i = 0; i < guessed.length; i++) {
+        guessed[i].classList.remove("guessed");
+      }
+      console.log(guessed);
       clearCanvas(true);
       overlayRound(true);
     }, 5000);
