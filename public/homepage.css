@@ -466,6 +466,7 @@ canvas:hover {
   background: var(--white);
   height: 778px;
   border-radius: 0.125rem;
+  z-index: 10;
 }
 .sidebar-container h2 {
   text-align: center;
