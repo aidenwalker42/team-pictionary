@@ -185,11 +185,15 @@ io.on("connection", (socket) => {
     rooms[index].points = points; //adding points array
     io.to(id).emit("points", rooms[index]);
   });
-  socket.on("addPoints", (amt, teamID, id) => {
+  socket.on("addPoints", (amt, teamID, id, drawingTeamID) => {
     let index = findRoomIndex(id);
-    rooms[index].points[teamID] += amt / rooms[index].players.length; //FIX THIS SHIT BRO
+    rooms[index].points[teamID] += (amt / rooms[index].players.length).round(); //FIX THIS SHIT BRO
+    rooms[index].points[drawingTeamID] += (
+      (amt * 0.5) /
+      rooms[index].players.length
+    ).round();
     console.log(amt);
-    io.to(id).emit("addPoints", teamID, rooms[index]);
+    io.to(id).emit("addPoints", teamID, rooms[index], drawingTeamID);
   });
   socket.on("tick", (time, id) => {
     io.to(id).emit("tick", time);

@@ -531,12 +531,16 @@ function wordGuessed(teamID, amt) {
   }
 
   //increase points of team
-  socket.emit("addPoints", amt, teamID, currentRoom.id); //adding amt to team
+  socket.emit("addPoints", amt, teamID, currentRoom.id, drawingTeamID); //adding amt to team
   //change background color
 }
-socket.on("addPoints", (teamID, roomObj) => {
+socket.on("addPoints", (teamID, roomObj, drawingTeamID) => {
   let theTeam = document.getElementById(`team-${teamID + 1}-points`);
+  let theDrawingTeam = document.getElementById(
+    `team-${drawingTeamID + 1}-points`
+  );
   theTeam.innerHTML = roomObj.points[teamID] + " Points";
+  theDrawingTeam.innerHTML = roomObj.points[drawingTeamID] + " Points";
   currentRoom = roomObj;
 });
 socket.on("greenBackground", (teamID) => {
