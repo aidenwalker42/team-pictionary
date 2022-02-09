@@ -132,51 +132,56 @@ function loadGameHtml() {
             </div>
         </div>
         <div id="palette" class="grid-center">
-                <div onclick="selectColor('black', this)" class="color-box black selected"></div>        
-                <div onclick="selectColor('white', this)" class="color-box white"></div>
-                <div onclick="selectColor('red', this)" class="color-box red"></div>
-                <div onclick="selectColor('orange', this)" class="color-box orange"></div>
-                <div onclick="selectColor('yellow', this)" class="color-box yellow"></div>
-                <div onclick="selectColor('lime', this)" class="color-box lime"></div>
-                <div onclick="selectColor('green', this)" class="color-box green"></div>
-                <div onclick="selectColor('cyan', this)" class="color-box cyan"></div>
-                <div onclick="selectColor('blue', this)" class="color-box blue"></div>
-                <div onclick="selectColor('purple', this)" class="color-box purple"></div>
-                <div onclick="selectColor('pink', this)" class="color-box pink"></div>
-                <div onclick="selectColor('brown', this)" class="color-box brown"></div>
-                <div onclick="selectColor('darkgrey', this)" class="color-box dark-gray"></div>
-                <div onclick="selectColor('lightgrey', this)" class="color-box light-gray"></div>
-                <div class="brush-wrapper">
-                    <div onclick="brushSizeSelector(1, this)" class="brush small active"></div>
-                </div>
-                <div class="brush-wrapper">
-                    <div onclick="brushSizeSelector(2, this)" class="brush medium"></div>
-                </div>
-                <div class="brush-wrapper">
-                    <div onclick="brushSizeSelector(3, this)" class="brush large"></div>
-                </div>
-                <div class="brush-wrapper"> 
-                    <div onclick="brushSizeSelector(4, this)" class="brush xlarge"></div>
-                </div>
-                <div class="clear-canvas-wrapper" onclick="clearCanvas()">
-                    <span>🗑️</span>
-                </div>
+          <div onclick="selectColor('black', this)" class="color-box black selected"></div>        
+          <div onclick="selectColor('white', this)" class="color-box white"></div>
+          <div onclick="selectColor('red', this)" class="color-box red"></div>
+          <div onclick="selectColor('orange', this)" class="color-box orange"></div>
+          <div onclick="selectColor('yellow', this)" class="color-box yellow"></div>
+          <div onclick="selectColor('lime', this)" class="color-box lime"></div>
+          <div onclick="selectColor('green', this)" class="color-box green"></div>
+          <div onclick="selectColor('cyan', this)" class="color-box cyan"></div>
+          <div onclick="selectColor('blue', this)" class="color-box blue"></div>
+          <div onclick="selectColor('purple', this)" class="color-box purple"></div>
+          <div onclick="selectColor('pink', this)" class="color-box pink"></div>
+          <div onclick="selectColor('brown', this)" class="color-box brown"></div>
+          <div onclick="selectColor('darkgrey', this)" class="color-box dark-gray"></div>
+          <div onclick="selectColor('lightgrey', this)" class="color-box light-gray"></div>
+          <div class="brush-wrapper" onclick="brushSizeSelector(1, this)">
+              <div class="brush small active"></div>
+          </div>
+          <div class="brush-wrapper" onclick="brushSizeSelector(2, this)">
+              <div class="brush medium"></div>
+          </div>
+          <div class="brush-wrapper" onclick="brushSizeSelector(3, this)">
+              <div class="brush large"></div>
+          </div>
+          <div class="brush-wrapper" onclick="brushSizeSelector(4, this)"> 
+              <div class="brush xlarge"></div>
+          </div>
+          <div class="clear-canvas-wrapper" onclick="clearCanvas()">
+              <span>🗑️</span>
+          </div>
         </div>
             `;
-  const canvasjs = document.createElement("script");
-  canvasjs.src = "gamejs/CanvasStack-2v01.js";
-  canvasjs.async = false;
-  canvasjs.onload = () => {
-    console.log("cstack load");
-  };
-  document.head.appendChild(canvasjs);
-  const indexjs = document.createElement("script");
-  indexjs.src = "gamejs/index.js";
-  indexjs.async = false;
-  indexjs.onload = () => {
-    console.log("index load");
-  };
-  document.body.appendChild(indexjs);
+  if (firstload) {
+    const canvasjs = document.createElement("script");
+    canvasjs.src = "gamejs/CanvasStack-2v01.js";
+    canvasjs.async = false;
+    canvasjs.onload = () => {
+      console.log("cstack load");
+    };
+    document.head.appendChild(canvasjs);
+    const indexjs = document.createElement("script");
+    indexjs.src = "gamejs/index.js";
+    indexjs.async = false;
+    indexjs.onload = () => {
+      console.log("index load");
+    };
+    document.body.appendChild(indexjs);
+  } else {
+    canvasInit();
+    checkWhichPlayer();
+  }
   addGameChatListener();
   displayTeams(currentRoom);
   guessingTeamsLeft = document.getElementsByClassName("game-team").length; //initialize this, then every new round scan again as well as when a team leaves that hasnt guessed.
@@ -184,6 +189,7 @@ function loadGameHtml() {
 
 function displayTeams(roomObj) {
   currentRoom = roomObj;
+  //index.js
   let teamSidebar = document.getElementById("team-sidebar");
   teamSidebar.innerHTML = "";
   function teamHTML(teamNum, playerOne, playerTwo) {

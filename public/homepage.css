@@ -326,6 +326,7 @@ canvas:hover {
 #palette {
   display: flex;
   align-items: center;
+  margin-top: -300px;
 }
 
 .color-box {
@@ -393,6 +394,10 @@ canvas:hover {
   display: grid;
   justify-content: center;
   align-content: center;
+  cursor: pointer;
+}
+.brush-wrapper:hover {
+  background-color: rgb(255, 0, 255);
 }
 .brush {
   background: black;
@@ -558,4 +563,7 @@ canvas:hover {
 }
 .green-text {
   color: yellowgreen;
+}
+.guessed {
+  background-color: yellowgreen;
 }

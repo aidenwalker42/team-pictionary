@@ -399,9 +399,11 @@ function overlayRound(bool) {
       if (currentRound === currentRoom.roundSettingValue) {
         //checks if last round
         //show scores
+        clearTimeout();
         overlay.innerHTML = `<h1>Match Over!</h1><br/>`;
-        setTimeout(() => {}, 5000);
+        setTimeout(endOfGameHandler, 2000);
         console.log("Game Over");
+        return;
       }
       getActiveTeam(0);
       currentRound++;
@@ -493,11 +495,21 @@ socket.on("tick", (theTime) => {
 function drawerHandler() {
   console.log("drawer");
   let hangman = document.getElementById("hangman");
+  let palette = document.getElementById("palette");
+  palette.className = "grid-center";
   hangman.innerHTML = currentWord;
   greenText = true;
+  brushSizeSelector(
+    1,
+    document.getElementsByClassName("brush-wrapper")[0],
+    true
+  );
+  selectColor("black", document.getElementsByClassName("color-box")[0], true);
 }
 function guesserHandler() {
   let overlay = document.getElementById("overlay");
+  let palette = document.getElementById("palette");
+  palette.className = "grid-center hidden";
   overlay.className = "nodraw grid-center";
   console.log("guesser");
   let hangman = document.getElementById("hangman");
@@ -511,11 +523,13 @@ function wordGuessed(teamID, amt) {
   guessingTeamsLeft--;
   if (yourTeamNumber === teamID) {
     greenText = true;
+    socket.emit("greenBackground", yourTeamNumber, currentRoom.id);
   }
   if (guessingTeamsLeft === 1) {
     //its one because the drawer isnt guessing
     roundEnd(2);
   }
+
   //increase points of team
   socket.emit("addPoints", amt, teamID, currentRoom.id); //adding amt to team
   //change background color
@@ -525,6 +539,27 @@ socket.on("addPoints", (teamID, roomObj) => {
   theTeam.innerHTML = roomObj.points[teamID] + " Points";
   currentRoom = roomObj;
 });
+socket.on("greenBackground", (teamID) => {
+  let theTeam = document.getElementById(`team-${teamID + 1}-points`);
+  theTeam.classList.add("guessed");
+});
+
+function quicksort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+
+  var pivot = array[0];
+
+  var left = [];
+  var right = [];
+
+  for (var i = 1; i < array.length; i++) {
+    array[i].score < pivot.score ? left.push(array[i]) : right.push(array[i]);
+  }
+
+  return quicksort(left).concat(pivot, quicksort(right));
+}
 
 function roundEnd(type) {
   //type 1 = timeout
@@ -539,6 +574,10 @@ function roundEnd(type) {
   hangman.innerHTML = currentWord;
   let overlay = document.getElementById("overlay");
   overlay.className = "visible grid-center";
+  let guessed = document.querySelectorAll(".guessed");
+  for (let i = 0; i < guessed.length; i++) {
+    guessed[i].classList.remove("guessed");
+  }
   switch (type) {
     case 1:
       overlay.innerHTML = `<h1>Time ran out!</h1><br/><h1>The word was "${currentWord}".</h1>`;
@@ -557,24 +596,6 @@ function roundEnd(type) {
   //go to back to lobby
   //update leaderboard
   setTimeout(() => {
-    function quicksort(array) {
-      if (array.length <= 1) {
-        return array;
-      }
-
-      var pivot = array[0];
-
-      var left = [];
-      var right = [];
-
-      for (var i = 1; i < array.length; i++) {
-        array[i].score < pivot.score
-          ? left.push(array[i])
-          : right.push(array[i]);
-      }
-
-      return quicksort(left).concat(pivot, quicksort(right));
-    }
     let scores = [];
     for (let i = 0; i < currentRoom.teams.length; i++) {
       scores[i] = {
@@ -590,13 +611,142 @@ function roundEnd(type) {
     let scoreboard = document.getElementById("overlay-points");
     scoreboard.innerHTML = "";
     for (let i = 0; i < currentRoom.teams.length; i++) {
-      scoreboard.innerHTML += `<li class="green-text"><b>P${
+      scoreboard.innerHTML += `<li class="green-text"><b>#${
         i + 1
       } -- </b>Team ${sorted[i].index + 1}: ${sorted[i].score} PTS</li>`;
     }
     setTimeout(() => {
-      clearCanvas();
+      clearCanvas(true);
       overlayRound(true);
     }, 5000);
   }, 5000);
+}
+
+function endOfGameHandler() {
+  //after 5000 seconds display scoreboard and go back to lobby
+  socket.emit("endGame", currentRoom);
+  console.log("endOfGameHandler()");
+  let scores = [];
+  for (let i = 0; i < currentRoom.teams.length; i++) {
+    scores[i] = {
+      score: currentRoom.points[i],
+      index: i,
+    };
+  }
+  console.log(scores);
+  let sorted = quicksort(scores).reverse();
+  console.log("Sorted array", sorted);
+  overlay.innerHTML = `<h1>Final Scores</h1><br />
+    <ul id="overlay-points"></ul>`;
+  let scoreboard = document.getElementById("overlay-points");
+  scoreboard.innerHTML = "";
+  for (let i = 0; i < currentRoom.teams.length; i++) {
+    if (i === 0) {
+      scoreboard.innerHTML += `<li class="player-local"><b>#${
+        i + 1
+      } -- </b>Team ${sorted[i].index + 1}: ${sorted[i].score} PTS</li>`;
+    } else {
+      scoreboard.innerHTML += `<li class="green-text"><b>#${
+        i + 1
+      } -- </b>Team ${sorted[i].index + 1}: ${sorted[i].score} PTS</li>`;
+    }
+  }
+  setTimeout(goBackToLobby, 5000);
+}
+
+function goBackToLobby() {
+  console.log("goBackToLobby");
+  console.log(teams);
+  teams.innerHTML = ``;
+  //reload html and put all the room data in it
+  section.innerHTML = `
+        <header>
+            <a href="javascript:btnHome();"><h1 class="h1-home">Team Pictionary</h1></a>
+        </header>
+        <h2>Lobby</h2>
+        <div class="lobby-room-name">
+            <h4>Room name:</h4> <span id="game-room-name"></span>
+        </div>
+        <div class="lobby-grid">
+            <div class="idle-players">
+                <div class="idle-players-spacer">
+                    <h3>Idle Players</h3>
+                    <ul id="game-idle-players">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="teams-box">
+                <div class="teams-grid" id="game-teams-grid">
+
+                </div>
+            </div>
+            <div class="lobby-settings" id="lobby-settings">
+                <div class="settings-item">
+                    <h4>Rounds: </h4>
+                    <div>
+                        
+                        <span id="rounds" class="settings-span"></span>
+                        
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <h4>Draw Time: </h4>
+                    <div>
+                        
+                        <span id="draw-time" class="settings-span"></span>
+                        
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <h4>Max Teams: </h4>
+                    <div>
+                        
+                        <span id="max-teams" class="settings-span"></span>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="game-history">
+                <div class="idle-players-spacer">
+                    <h3>Leaderboard</h3>
+                    <ol id="game-leaderboard">
+
+                    </ol>
+                </div>
+            </div>
+            <div class="lobby-chat-box">
+                <div class="chat-container" id="chats">
+                    <ul id="game-chat">
+                    
+                    </ul>
+                </div>
+                <form id="game-chat-form" action="">
+                    <input autocomplete="false" type="text" placeholder="Chat Message" id="chat-input">
+                    <button id="chat-button">Chat</button>
+                </form>
+            </div>
+            <div class="start-game-container" id="start-game-container">
+            </div>
+        </div>
+        `;
+  for (let i = 0; i < currentRoom.teamMaxSettingValue; i++) {
+    document.getElementById("game-teams-grid").innerHTML += `
+    <div class="team">
+      <h3 onclick="joinTeam(${i + 1})" id="team-header-${i + 1}">Team ${
+      i + 1
+    }</h3>
+      <ul id="team-${i + 1}">
+      </ul>
+    </div>`;
+  }
+  console.log(teams);
+  console.log(section);
+  teams = document.getElementById("game-teams-grid");
+  updateUsernameClasses(currentRoom);
+  firstload = false;
+  addChatListener();
+  if (socket.id === currentRoom.host.id) {
+    displayHostControls(); //have to change currentRoom object to not inprogress, and delete scores key?
+  }
 }

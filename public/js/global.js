@@ -1,4 +1,5 @@
-const socket = io.connect("ws://localhost:5500");
+const socket = io.connect();
+//"ws://localhost:5500"
 let localSocketID = socket.id;
 
 const section = document.getElementById("main-container");
@@ -8,7 +9,8 @@ let timeSetting;
 let roundSetting;
 let teamMaxSetting;
 let localUsername;
-const BaseURL = "http://localhost:5500/rooms";
+const BaseURL = "https://teampictionary.herokuapp.com/rooms";
+//http://localhost:5500/rooms
 
 let roomName;
 let idlePlayers;
@@ -42,10 +44,11 @@ let guessingTeamsLeft;
 
 let clock;
 
+let firstload = true;
+
 function updateUsernameClasses(roomObject) {
   // teams.innerHTML = "";
-  console.log("erroe");
-  console.log(roomObject);
+  console.log("updateLobby");
   currentRoom = roomObject;
   idlePlayers.innerHTML = "";
   console.log(roomObject);
@@ -159,6 +162,7 @@ socket.on("playerLeft", (roomObject) => {
     //if game is going on
     displayTeams(currentRoom);
     gameLeaveHandler(currentRoom, previousRoom);
+    checkWhichPlayer();
     return;
   }
   //if in game then different render
@@ -213,4 +217,8 @@ socket.on("settingsChanged", (roomObject) => {
   if (socket.id === currentRoom.host.id) {
     lobbySettingsDOM.innerHTML += `<button class="big-button blue" onclick="editLobbySettings()">Change Settings</button>`;
   }
+});
+
+socket.on("endGame", (roomObject) => {
+  currentRoom = roomObject;
 });

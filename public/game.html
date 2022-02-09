@@ -117,17 +117,17 @@
                 <div onclick="selectColor('brown', this)" class="color-box brown"></div>
                 <div onclick="selectColor('darkgrey', this)" class="color-box dark-gray"></div>
                 <div onclick="selectColor('lightgrey', this)" class="color-box light-gray"></div>
-                <div class="brush-wrapper">
-                    <div onclick="brushSizeSelector(1, this)" class="brush small active"></div>
+                <div class="brush-wrapper" onclick="brushSizeSelector(1, this)">
+                    <div class="brush small active"></div>
                 </div>
-                <div class="brush-wrapper">
-                    <div onclick="brushSizeSelector(2, this)" class="brush medium"></div>
+                <div class="brush-wrapper" onclick="brushSizeSelector(2, this)">
+                    <div class="brush medium"></div>
                 </div>
-                <div class="brush-wrapper">
-                    <div onclick="brushSizeSelector(3, this)" class="brush large"></div>
+                <div class="brush-wrapper" onclick="brushSizeSelector(3, this)">
+                    <div class="brush large"></div>
                 </div>
-                <div class="brush-wrapper"> 
-                    <div onclick="brushSizeSelector(4, this)" class="brush xlarge"></div>
+                <div class="brush-wrapper" onclick="brushSizeSelector(4, this)"> 
+                    <div class="brush xlarge"></div>
                 </div>
                 <div class="clear-canvas-wrapper" onclick="clearCanvas()">
                     <span>🗑️</span>
@@ -137,7 +137,7 @@
     
     <div id="brush-selectors">
     </div>
-    
+    <script src="gamejs/CanvasStack-2v01.js"></script>
     <script src="gamejs/index.js"></script>
 </body>
 </html>

@@ -25,23 +25,44 @@ let rooms = [];
 
 io.on("connection", (socket) => {
   console.log(socket.id);
-  socket.on("mouseDown", (xPos, yPos) => {
-    socket.broadcast.emit("mouseDown", xPos, yPos);
+  socket.on("p1mouseDown", (xPos, yPos, id) => {
+    socket.to(id).emit("p1mouseDown", xPos, yPos);
   });
-  socket.on("mouseMove", (xPos, yPos) => {
-    socket.broadcast.emit("mouseMove", xPos, yPos);
+  socket.on("p1mouseMove", (xPos, yPos, id) => {
+    socket.to(id).emit("p1mouseMove", xPos, yPos);
   });
-  socket.on("mouseUp", () => {
-    socket.broadcast.emit("mouseUp");
+  socket.on("p1mouseUp", (id) => {
+    socket.to(id).emit("p1mouseUp");
   });
-  socket.on("clearCanvas", () => {
-    socket.broadcast.emit("clearCanvas");
+  socket.on("p1clearCanvas", (id) => {
+    socket.to(id).emit("p1clearCanvas");
   });
-  socket.on("selectColor", (color) => {
-    socket.broadcast.emit("selectColor", color);
+  socket.on("p1selectColor", (color, id) => {
+    socket.to(id).emit("p1selectColor", color);
   });
-  socket.on("brushSize", (brushSize) => {
-    socket.broadcast.emit("brushSize", brushSize);
+  socket.on("p1brushSize", (brushSize, id) => {
+    socket.to(id).emit("p1brushSize", brushSize);
+  });
+  socket.on("p2mouseDown", (xPos, yPos, id) => {
+    socket.to(id).emit("p2mouseDown", xPos, yPos);
+  });
+  socket.on("p2mouseMove", (xPos, yPos, id) => {
+    socket.to(id).emit("p2mouseMove", xPos, yPos);
+  });
+  socket.on("p2mouseUp", (id) => {
+    socket.to(id).emit("p2mouseUp");
+  });
+  socket.on("p2clearCanvas", (id) => {
+    socket.to(id).emit("p2clearCanvas");
+  });
+  socket.on("p2selectColor", (color, id) => {
+    socket.to(id).emit("p2selectColor", color);
+  });
+  socket.on("p2brushSize", (brushSize, id) => {
+    socket.to(id).emit("p2brushSize", brushSize);
+  });
+  socket.on("greenBackground", (teamID, id) => {
+    io.to(id).emit("greenBackground", teamID);
   });
   socket.on("joinSocketRoom", (roomObject) => {
     socket.join(roomObject.id);
@@ -150,6 +171,11 @@ io.on("connection", (socket) => {
     let index = findRoomIndex(roomObject.id);
     rooms[index].inProgress = true;
     io.to(roomObject.id).emit("startGame", rooms[index]);
+  });
+  socket.on("endGame", (roomObject) => {
+    let index = findRoomIndex(roomObject.id);
+    rooms[index].inProgress = false;
+    io.to(roomObject.id).emit("endGame", rooms[index]);
   });
   socket.on("setWord", (word, roomObject) => {
     io.to(roomObject.id).emit("setWord", word);
