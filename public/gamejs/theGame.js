@@ -365,11 +365,86 @@ let wordBank = [
   "yardstick",
   "zoo",
 ];
+let funWords = [
+  "obama",
+  "trump",
+  "stocks",
+  "sloppy",
+  "gaysex",
+  "buttsex",
+  "fist",
+  "doge",
+  "aiden",
+  "colin",
+  "hooters",
+  "memes",
+  "agustin",
+  "adam",
+  "reddit",
+  "markzuckerburg",
+  "elonmusk",
+  "uganda",
+  "ligma",
+  "nyancat",
+  "sonic",
+  "420",
+  "weed",
+  "2girls1cup",
+  "dickbutt",
+  "rage",
+  "mad",
+  "gay",
+  "feminist",
+  "bitch",
+  "degenerate",
+  "blowjob",
+  "johnnysins",
+  "sodomy",
+  "blacked",
+  "servitude",
+  "slavery",
+  "jews",
+  "holocaust",
+  "israel",
+  "palestine",
+  "mexican",
+  "liberal",
+  "conservative",
+  "obama",
+  "monkey",
+  "taliban",
+  "russia",
+  "sexism",
+  "nigger",
+  "spic",
+  "spook",
+  "trump",
+  "biden",
+  "nazi",
+  "hitler",
+  "stalin",
+  "covid",
+  "fraud",
+  "electionfraud",
+  "whore",
+  "penetration",
+  "9/11",
+  "osamabinladen",
+  "genocide",
+  "yassin",
+  "rwanda",
+  "cocaine",
+  "boofing",
+  "gay",
+  "caitlinjenner",
+  "ojsimpson",
+];
 function getWords() {
   let a = Math.floor(Math.random() * wordBank.length);
   let b = Math.floor(Math.random() * wordBank.length);
-  let c = Math.floor(Math.random() * wordBank.length);
-  return [wordBank[a], wordBank[b], wordBank[c]];
+  let c = Math.floor(Math.random() * funWords.length);
+  return [wordBank[a], wordBank[b], funWords[c]];
+  // return [wordBank[a], wordBank[b], wordBank[c]];
 }
 
 function overlayRound(bool) {
@@ -531,7 +606,14 @@ function wordGuessed(teamID, amt) {
   }
 
   //increase points of team
-  socket.emit("addPoints", amt, teamID, currentRoom.id, theActiveTeamNumber); //adding amt to team
+  socket.emit(
+    "addPoints",
+    amt,
+    teamID,
+    currentRoom.id,
+    theActiveTeamNumber,
+    currentRoom.timeSettingValue
+  ); //adding amt to team
   //change background color
 }
 socket.on("addPoints", (teamID, roomObj, drawingTeamID) => {
