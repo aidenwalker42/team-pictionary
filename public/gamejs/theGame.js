@@ -503,8 +503,8 @@ let funWords = [
 function getWords() {
   let a = Math.floor(Math.random() * wordBank.length);
   let b = Math.floor(Math.random() * wordBank.length);
-  let c = Math.floor(Math.random() * funWords.length);
-  return [wordBank[a], wordBank[b], funWords[c]];
+  let c = Math.floor(Math.random() * wordBank.length);
+  return [wordBank[a], wordBank[b], wordBank[c]];
   // return [wordBank[a], wordBank[b], wordBank[c]];
 }
 
